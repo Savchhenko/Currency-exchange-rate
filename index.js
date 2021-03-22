@@ -1,11 +1,35 @@
+const now = new Date();
+console.log(now);
+
+const nowYear = now.getFullYear();
+let nowMonth = now.getMonth();
+if(nowMonth < 10) {
+  nowMonth = '0' + nowMonth;
+}
+const nowDay = now.getDate();
+const currentDate = nowYear + '-' + nowMonth + '-' + nowDay;
+console.log(currentDate);
+
+
+// Данный код уменьшает дату на 1 день 
+// let date = new Date();
+// date.setDate(date.getDate() - 1);
+
+
 const appDiv = document.querySelector('#app');
+const currentDateElem = document.createElement("div");
+const spanDateElem = document.createElement("span");
 const newDiv = document.createElement("div");
 
+appDiv.appendChild(currentDateElem);
+currentDateElem.appendChild(spanDateElem);
+appDiv.appendChild(newDiv);
+
+spanDateElem.innerHTML = `Today is ${nowDay}.${nowMonth}.${nowYear}`;
 newDiv.setAttribute('id', 'newdiv')
 newDiv.style.color = 'black';
 newDiv.innerHTML = 'Hello';
 
-appDiv.appendChild(newDiv);
 
 const btn = [0, 1, 2, 3, 4, 5, 6].map( (item) => `<button class="btn-${item}"></button>` );
 console.log(btn.join(''));
