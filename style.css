@@ -1,4 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns-container {
+    margin-bottom: 30px;
+}
+
 .info-container {
     display: flex;
     flex-direction: column;
+}
+
+.rate-info {
+    margin: 10px 0;
 }

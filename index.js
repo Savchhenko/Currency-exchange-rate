@@ -13,18 +13,19 @@ const currentDate = nowDay + '-' + nowMonth + '-' + nowYear;
 
 const appDiv = document.querySelector('#app');
 const currentDateContainer = document.createElement("div");
-const spanDateElem = document.createElement("span");
+const h2DateElem = document.createElement("h2");
 const btnsContainer = document.createElement("div"); 
 const ratesInfoContainer = document.createElement("div");
 
 ratesInfoContainer.classList.add("info-container");
+btnsContainer.classList.add("btns-container");
 
 appDiv.appendChild(currentDateContainer);
-currentDateContainer.appendChild(spanDateElem);
+currentDateContainer.appendChild(h2DateElem);
 appDiv.appendChild(btnsContainer);
 appDiv.appendChild(ratesInfoContainer);
 
-spanDateElem.innerHTML = `Today is ${currentDate}`;
+h2DateElem.innerHTML = `Сегодня ${currentDate}`;
 
 
 const btns = [0, 1, 2, 3, 4, 5, 6].map( (item) => `<button class="btn-${item}"></button>` );
@@ -58,7 +59,6 @@ const fn = (data) => {
 };
 
 for (let i = 0; i < buttons.length; i++) {
-  // const data = buttons[i].innerHTML;
   buttons[i].addEventListener('click', () => {
     fn(buttons[i].innerHTML.split('-').reverse().join('-'));
   })
@@ -66,10 +66,11 @@ for (let i = 0; i < buttons.length; i++) {
 
 const displayRatesInfo = (data) => { 
   const spanRatesInfoElem = document.createElement("span");
+  spanRatesInfoElem.classList.add("rate-info");
   ratesInfoContainer.appendChild(spanRatesInfoElem);
 
   const date = data.date.split('-').reverse().join('-');
   const base = data.base;
   const ratesRub = data.rates.RUB;
-  spanRatesInfoElem.innerHTML = `<b>${date}</b> 1 ${base} = ${ratesRub} RUB`;
+  spanRatesInfoElem.innerHTML = `<b>${date}</b> 1 ${base} = ${ratesRub} ${BASE_RATE}`;
 }; 
