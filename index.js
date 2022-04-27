@@ -4,7 +4,7 @@ const KEY = "54600a0860270799d8b51e72d718e6cd";
 
 const now = new Date();
 const nowYear = now.getFullYear();
-let nowMonth = now.getMonth();
+let nowMonth = now.getMonth() + 1; // +1 because the month argument counts starting from zero
 if(nowMonth < 10) {
   nowMonth = '0' + nowMonth;
 }
