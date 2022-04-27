@@ -1,5 +1,6 @@
-const API_URL = "https://api.exchangeratesapi.io";
+const API_URL = "http://api.exchangeratesapi.io/v1";
 const BASE_RATE = "RUB";
+const KEY = "54600a0860270799d8b51e72d718e6cd";
 
 const now = new Date();
 const nowYear = now.getFullYear();
@@ -46,7 +47,7 @@ for(let i = 0; i < buttons.length; i++) {
 }
       
 const fn = (data) => {
-  fetch(`${API_URL}/${data}?base=${BASE_RATE}`)
+  fetch(`${API_URL}/${data}?access_key=${KEY}&symbols=${BASE_RATE}`)
   .then( data => data.json())
   .then(console.log)
 };
