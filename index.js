@@ -10,23 +10,25 @@ if(nowMonth < 10) {
 }
 const nowDay = now.getDate();
 const currentDate = nowDay + '-' + nowMonth + '-' + nowYear;
-console.log(currentDate);
-
 
 const appDiv = document.querySelector('#app');
-const currentDateElem = document.createElement("div");
+const currentDateContainer = document.createElement("div");
 const spanDateElem = document.createElement("span");
-const newDiv = document.createElement("div");
+const btnsContainer = document.createElement("div"); 
+const ratesInfoContainer = document.createElement("div");
 
-appDiv.appendChild(currentDateElem);
-currentDateElem.appendChild(spanDateElem);
-appDiv.appendChild(newDiv);
+ratesInfoContainer.classList.add("info-container");
+
+appDiv.appendChild(currentDateContainer);
+currentDateContainer.appendChild(spanDateElem);
+appDiv.appendChild(btnsContainer);
+appDiv.appendChild(ratesInfoContainer);
 
 spanDateElem.innerHTML = `Today is ${currentDate}`;
 
 
-const btn = [0, 1, 2, 3, 4, 5, 6].map( (item) => `<button class="btn-${item}"></button>` );
-newDiv.innerHTML = btn.join(' ');
+const btns = [0, 1, 2, 3, 4, 5, 6].map( (item) => `<button class="btn-${item}"></button>` );
+btnsContainer.innerHTML = btns.join(' '); 
 
 const table = document.createElement("table");
 appDiv.appendChild(table);
@@ -41,7 +43,7 @@ const btn0 = document.querySelector('.btn-0'),
       
 const buttons = [btn0, btn1, btn2, btn3, btn4, btn5, btn6];
 
-for(let i = 0; i < buttons.length; i++) {
+for (let i = 0; i < buttons.length; i++) {
   let date = `${nowDay - i}-${nowMonth}-${nowYear}`;
   buttons[i].innerHTML = date;
 }
@@ -49,12 +51,25 @@ for(let i = 0; i < buttons.length; i++) {
 const fn = (data) => {
   fetch(`${API_URL}/${data}?access_key=${KEY}&symbols=${BASE_RATE}`)
   .then( data => data.json())
-  .then(console.log)
+  .then(data => {
+    console.log(data);
+    displayRatesInfo(data);
+  })
 };
 
-for(let i = 0; i < buttons.length; i++) {
+for (let i = 0; i < buttons.length; i++) {
   // const data = buttons[i].innerHTML;
   buttons[i].addEventListener('click', () => {
     fn(buttons[i].innerHTML.split('-').reverse().join('-'));
   })
 }
+
+const displayRatesInfo = (data) => { 
+  const spanRatesInfoElem = document.createElement("span");
+  ratesInfoContainer.appendChild(spanRatesInfoElem);
+
+  const date = data.date.split('-').reverse().join('-');
+  const base = data.base;
+  const ratesRub = data.rates.RUB;
+  spanRatesInfoElem.innerHTML = `<b>${date}</b> 1 ${base} = ${ratesRub} RUB`;
+}; 
